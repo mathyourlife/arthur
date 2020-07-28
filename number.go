@@ -63,7 +63,7 @@ type IntegerFraction struct {
 	d int64
 }
 
-func NewRandomIntegerFraction(props ...IntegerFractionProp) *IntegerFraction {
+func NewRandIntegerFraction(props ...IntegerFractionProp) *IntegerFraction {
 
 	a := NewRandInt()
 	b := NewRandInt()

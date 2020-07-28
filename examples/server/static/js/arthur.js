@@ -18,8 +18,23 @@ function loadFraction(fracType) {
     alert( "Request failed: " + textStatus );
   });
 }
+function loadInteger(intType) {
+  var request = $.ajax({
+    url: "api/v1/integer?type="+intType,
+    method: "GET",
+  });
+
+  request.done(function( msg ) {
+    katex.render(msg, integer);
+  });
+
+  request.fail(function( jqXHR, textStatus ) {
+    alert( "Request failed: " + textStatus );
+  });
+}
 $( document ).ready(function() {
     console.log( "ready!" );
+    loadInteger();
     loadFraction('proper');
     loadFraction('improper');
     loadFraction('unit');

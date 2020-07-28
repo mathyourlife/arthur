@@ -7,15 +7,21 @@ import (
 	"github.com/mathyourlife/arthur"
 )
 
-func ArthurHandler(w http.ResponseWriter, r *http.Request) {
+func ArthurFractionHandler(w http.ResponseWriter, r *http.Request) {
 	fractionType := r.URL.Query().Get("type")
 	var exp arthur.Expression
 	if fractionType == "improper" {
-		exp = arthur.NewRandomIntegerFraction(arthur.IntegerFractionPropImproper)
+		exp = arthur.NewRandIntegerFraction(arthur.IntegerFractionPropImproper)
 	} else if fractionType == "unit" {
-		exp = arthur.NewRandomIntegerFraction(arthur.IntegerFractionPropUnit)
+		exp = arthur.NewRandIntegerFraction(arthur.IntegerFractionPropUnit)
 	} else {
-		exp = arthur.NewRandomIntegerFraction(arthur.IntegerFractionPropProper)
+		exp = arthur.NewRandIntegerFraction(arthur.IntegerFractionPropProper)
 	}
+	fmt.Fprintf(w, exp.LaTeX())
+}
+
+func ArthurIntegerHandler(w http.ResponseWriter, r *http.Request) {
+	var exp arthur.Expression
+	exp = arthur.NewRandInt()
 	fmt.Fprintf(w, exp.LaTeX())
 }

@@ -1,9 +1,26 @@
 {{template "root" .}}
 {{define "container"}}
 <div class="row">
+  <h4 class="my-0 font-weight-normal">Numbers</h4>
+</div>
+<div class="row">
   <div class="col-sm">
     <div class="card-header">
-      <h4 class="my-0 font-weight-normal">Fractions - Proper</h4>
+      <h4 class="my-0 font-weight-normal">Integer</h4>
+    </div>
+    <div class="card-body">
+      <div id="integer" class="katex"></div>
+      <button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick="loadInteger()">Next</button>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <h4 class="my-0 font-weight-normal">Fractions</h4>
+</div>
+<div class="row">
+  <div class="col-sm">
+    <div class="card-header">
+      <h4 class="my-0 font-weight-normal">Proper</h4>
     </div>
     <div class="card-body">
       <div id="proper_fraction" class="katex"></div>
@@ -12,7 +29,7 @@
   </div>
   <div class="col-sm">
     <div class="card-header">
-      <h4 class="my-0 font-weight-normal">Fractions - Improper</h4>
+      <h4 class="my-0 font-weight-normal">Improper</h4>
     </div>
     <div class="card-body">
       <div id="improper_fraction" class="katex"></div>
@@ -21,7 +38,7 @@
   </div>
   <div class="col-sm">
     <div class="card-header">
-      <h4 class="my-0 font-weight-normal">Fractions - Unit</h4>
+      <h4 class="my-0 font-weight-normal">Unit</h4>
     </div>
     <div class="card-body">
       <div id="unit_fraction" class="katex"></div>

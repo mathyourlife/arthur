@@ -24,12 +24,12 @@ func TestIntegerFractionLaTeX(t *testing.T) {
 	assert.Equal(t, "\\frac{-3}{-4}", exp.LaTeX())
 }
 
-func TestNewRandomIntegerFraction(t *testing.T) {
-	f := NewRandomIntegerFraction(IntegerFractionPropProper)
+func TestNewRandIntegerFraction(t *testing.T) {
+	f := NewRandIntegerFraction(IntegerFractionPropProper)
 	assert.Less(t, f.Numerator().(*Integer).N, f.Denominator().(*Integer).N)
-	f = NewRandomIntegerFraction(IntegerFractionPropImproper)
+	f = NewRandIntegerFraction(IntegerFractionPropImproper)
 	assert.Less(t, f.Denominator().(*Integer).N, f.Numerator().(*Integer).N)
-	f = NewRandomIntegerFraction(IntegerFractionPropUnit)
+	f = NewRandIntegerFraction(IntegerFractionPropUnit)
 	assert.Equal(t, int64(1), f.Numerator().(*Integer).N)
 	assert.NotEqual(t, int64(1), f.Denominator().(*Integer).N)
 }

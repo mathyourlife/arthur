@@ -20,7 +20,7 @@ func handleMain(w http.ResponseWriter, r *http.Request) {
 	})
 	pd.Body.Scripts = append(pd.Body.Scripts, &HTMLScript{
 		Src:       "/static/js/arthur.js",
-		Integrity: "sha384-vaj9D31ylAwqaMoRXf8X/yKf+K3aSW4R/hs344aBPCgHbHDgonrNsDwWZ06/4ZB+",
+		Integrity: "sha384-AMZmb0922WbyM2VHusA/VNqz6wHWnT25llFLps19tuBK116trbXM+6ey0xo/71RK",
 	})
 
 	t := templates["index.html"]
@@ -41,7 +41,8 @@ func main() {
 
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static/"))))
 
-	http.HandleFunc("/api/v1/fraction", tib.ArthurHandler)
+	http.HandleFunc("/api/v1/fraction", tib.ArthurFractionHandler)
+	http.HandleFunc("/api/v1/integer", tib.ArthurIntegerHandler)
 	http.HandleFunc("/", handleMain)
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
