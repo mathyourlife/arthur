@@ -1,0 +1,11 @@
+{{define "javascript"}}
+{{- range .}}
+{{- if eq .Src ""}}
+<script>{{.Code}}</script>
+{{- else if eq .Integrity ""}}
+<script src="{{.Src}}"></script>
+{{- else}}
+<script src="{{.Src}}" integrity="{{.Integrity}}" crossorigin="anonymous"></script>
+{{- end}}
+{{- end}}
+{{end}}

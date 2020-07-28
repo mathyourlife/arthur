@@ -1,0 +1,6 @@
+.katex {
+  font-size: 2em !important;
+  display: flex;
+  padding: 10px;
+  justify-content: center;
+}

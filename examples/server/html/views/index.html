@@ -1,0 +1,14 @@
+{{template "root" .}}
+{{define "container"}}
+<div class="row">
+  <div class="col-sm">
+    <div class="card-header">
+      <h4 class="my-0 font-weight-normal">Fractions</h4>
+    </div>
+    <div class="card-body">
+      <div id="fraction" class="katex"></div>
+      <button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick="loadFraction()">Next</button>
+    </div>
+  </div>
+</div>
+{{end}}
