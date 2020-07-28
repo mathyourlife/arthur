@@ -7,14 +7,16 @@ in working with mathematics content.
 
 ### HTTP Server
 
-Sample server that currently responds with a LaTeX formatted
-fraction.
+Sample server that demonstrates some of arthur's usages.
 
 ```
-go run github.com/mathyourlife/arthur/examples/server
+cd examples/server
+go run .
 ```
 
+![Example Server Home Page](images/example-server.png)
+
 ```
-curl localhost:8080
-\frac{1}{18}
+curl localhost:8080/api/v1/fraction
+\frac{2}{12}
 ```
