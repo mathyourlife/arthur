@@ -31,8 +31,12 @@ func NewRandInt(props ...IntegerProperty) *Integer {
 	return &Integer{rand.Int63n(size) + 1}
 }
 
-func (n *Integer) LaTeX() string {
-	return fmt.Sprintf("%d", n.N)
+func (z *Integer) LaTeX() string {
+	return fmt.Sprintf("%d", z.N)
+}
+
+func (z *Integer) Equal(n *Integer) bool {
+	return z.N == n.N
 }
 
 type FractionProperty int
@@ -49,7 +53,9 @@ type Fraction interface {
 type IntegerFractionProp int
 
 const (
-	IntegerFractionPropProper IntegerFractionProp = 1
+	IntegerFractionPropProper   IntegerFractionProp = 1
+	IntegerFractionPropImproper IntegerFractionProp = 2
+	IntegerFractionPropUnit     IntegerFractionProp = 3
 )
 
 type IntegerFraction struct {
@@ -62,16 +68,36 @@ func NewRandomIntegerFraction(props ...IntegerFractionProp) *IntegerFraction {
 	a := NewRandInt()
 	b := NewRandInt()
 
-	if a.N == b.N {
-		for {
-			b = NewRandInt()
-			if a.N != b.N {
-				break
+	for _, prop := range props {
+		if prop == IntegerFractionPropProper {
+			for {
+				if !a.Equal(b) {
+					break
+				}
+				b = NewRandInt()
+			}
+			if a.N > b.N {
+				a, b = b, a
+			}
+		} else if prop == IntegerFractionPropImproper {
+			for {
+				if !a.Equal(b) {
+					break
+				}
+				b = NewRandInt()
+			}
+			if a.N < b.N {
+				a, b = b, a
+			}
+		} else if prop == IntegerFractionPropUnit {
+			a.N = 1
+			for {
+				if !a.Equal(b) {
+					break
+				}
+				b = NewRandInt()
 			}
 		}
-	}
-	if a.N > b.N {
-		a, b = b, a
 	}
 
 	return &IntegerFraction{a.N, b.N}

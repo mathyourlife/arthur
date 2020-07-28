@@ -1,11 +1,17 @@
-function loadFraction() {
+function loadFraction(fracType) {
   var request = $.ajax({
-    url: "api/v1/fraction",
+    url: "api/v1/fraction?type="+fracType,
     method: "GET",
   });
 
   request.done(function( msg ) {
-    katex.render(msg, fraction);
+    if (fracType == 'proper') {
+      katex.render(msg, proper_fraction);
+    } else if (fracType == 'improper') {
+      katex.render(msg, improper_fraction);
+    } else if (fracType == 'unit') {
+      katex.render(msg, unit_fraction);
+    }
   });
 
   request.fail(function( jqXHR, textStatus ) {
@@ -14,5 +20,7 @@ function loadFraction() {
 }
 $( document ).ready(function() {
     console.log( "ready!" );
-    loadFraction();
+    loadFraction('proper');
+    loadFraction('improper');
+    loadFraction('unit');
 });
