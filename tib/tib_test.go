@@ -12,7 +12,7 @@ import (
 )
 
 func TestArthurHandler(t *testing.T) {
-	ts := httptest.NewServer(http.HandlerFunc(ArthurHandler))
+	ts := httptest.NewServer(http.HandlerFunc(ArthurFractionHandler))
 	defer ts.Close()
 
 	res, err := http.Get(ts.URL)
