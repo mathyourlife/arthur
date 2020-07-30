@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	tib "github.com/mathyourlife/arthur/tib"
+	"github.com/mathyourlife/arthur/tib"
 )
 
 var (
@@ -39,12 +39,12 @@ func main() {
 
 	parseTemplates("html")
 
-	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static/"))))
+	mux := http.NewServeMux()
+	tib.SetupMux("api/v1/", mux)
 
-	http.HandleFunc("/api/v1/fraction", tib.ArthurFractionHandler)
-	http.HandleFunc("/api/v1/integer", tib.ArthurIntegerHandler)
-	http.HandleFunc("/", handleMain)
-	err := http.ListenAndServe(":8080", nil)
+	mux.HandleFunc("/", handleMain)
+	mux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static/"))))
+	err := http.ListenAndServe(":8080", mux)
 	if err != nil {
 		log.Fatalf("http server failed: %s", err)
 	}

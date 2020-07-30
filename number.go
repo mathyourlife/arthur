@@ -10,25 +10,28 @@ type IntegerProperty int
 const (
 	IntegerPropertyPositive IntegerProperty = 1
 	IntegerPropertySmall    IntegerProperty = 2
-	IntegerPropertyMedium   IntegerProperty = 2
-	IntegerPropertyLarge    IntegerProperty = 2
+	IntegerPropertyMedium   IntegerProperty = 3
+	IntegerPropertyLarge    IntegerProperty = 4
 )
 
 type Integer struct {
-	N int64
+	N int64 `json:"value"`
 }
 
 func NewRandInt(props ...IntegerProperty) *Integer {
 
 	size := int64(20)
+	base := int64(0)
 	for _, prop := range props {
 		if prop == IntegerPropertyMedium {
-			size = int64(1000)
+			size = int64(950)
+			base = int64(50)
 		} else if prop == IntegerPropertyLarge {
-			size = int64(100000)
+			size = int64(99000)
+			base = int64(1000)
 		}
 	}
-	return &Integer{rand.Int63n(size) + 1}
+	return &Integer{rand.Int63n(size) + base + 1}
 }
 
 func (z *Integer) LaTeX() string {
@@ -59,8 +62,8 @@ const (
 )
 
 type IntegerFraction struct {
-	n int64
-	d int64
+	N int64 `json:"numerator"`
+	D int64 `json:"denominator"`
 }
 
 func NewRandIntegerFraction(props ...IntegerFractionProp) *IntegerFraction {
@@ -104,15 +107,15 @@ func NewRandIntegerFraction(props ...IntegerFractionProp) *IntegerFraction {
 }
 
 func (f *IntegerFraction) Numerator() Expression {
-	return &Integer{f.n}
+	return &Integer{f.N}
 }
 
 func (f *IntegerFraction) Denominator() Expression {
-	return &Integer{f.d}
+	return &Integer{f.D}
 }
 
 func (f *IntegerFraction) LaTeX() string {
-	n := &Integer{f.n}
-	d := &Integer{f.d}
+	n := &Integer{f.N}
+	d := &Integer{f.D}
 	return fmt.Sprintf("\\frac{%s}{%s}", n.LaTeX(), d.LaTeX())
 }
