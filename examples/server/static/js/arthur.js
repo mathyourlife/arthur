@@ -18,14 +18,20 @@ function loadFraction(fracType) {
     alert( "Request failed: " + textStatus );
   });
 }
-function loadInteger(intType) {
+function loadInteger(size) {
   var request = $.ajax({
-    url: "api/v1/integer?type="+intType,
+    url: "api/v1/integer?size="+size,
     method: "GET",
   });
 
   request.done(function( msg ) {
-    katex.render(msg, integer);
+    if (size == 'small') {
+      katex.render(msg, integer_small);
+    } else if (size == 'medium') {
+      katex.render(msg, integer_medium);
+    } else if (size == 'large') {
+      katex.render(msg, integer_large);
+    }
   });
 
   request.fail(function( jqXHR, textStatus ) {
@@ -34,7 +40,9 @@ function loadInteger(intType) {
 }
 $( document ).ready(function() {
     console.log( "ready!" );
-    loadInteger();
+    loadInteger('small');
+    loadInteger('medium');
+    loadInteger('large');
     loadFraction('proper');
     loadFraction('improper');
     loadFraction('unit');
