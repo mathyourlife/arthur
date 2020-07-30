@@ -38,6 +38,20 @@ function loadInteger(size) {
     alert( "Request failed: " + textStatus );
   });
 }
+function loadSum(sumType) {
+  var request = $.ajax({
+    url: "api/v1/sum",
+    method: "GET",
+  });
+
+  request.done(function( msg ) {
+    katex.render(msg, addition);
+  });
+
+  request.fail(function( jqXHR, textStatus ) {
+    alert( "Request failed: " + textStatus );
+  });
+}
 $( document ).ready(function() {
     console.log( "ready!" );
     loadInteger('small');
@@ -46,4 +60,5 @@ $( document ).ready(function() {
     loadFraction('proper');
     loadFraction('improper');
     loadFraction('unit');
+    loadSum('fraction');
 });

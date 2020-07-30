@@ -1,12 +1,26 @@
 {{template "root" .}}
 {{define "container"}}
 <div class="row">
-  <h4 class="my-0 font-weight-normal">Numbers</h4>
+  <h4 class="my-0 font-weight-normal">Addition</h4>
 </div>
 <div class="row">
   <div class="col-sm">
     <div class="card-header">
-      <h4 class="my-0 font-weight-normal">Integer - Small</h4>
+      <h4 class="my-0 font-weight-normal">Fractions</h4>
+    </div>
+    <div class="card-body">
+      <div id="addition" class="katex"></div>
+      <button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick="loadSum('fraction')">Next</button>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <h4 class="my-0 font-weight-normal">Integers</h4>
+</div>
+<div class="row">
+  <div class="col-sm">
+    <div class="card-header">
+      <h4 class="my-0 font-weight-normal">Small</h4>
     </div>
     <div class="card-body">
       <div id="integer_small" class="katex"></div>
@@ -15,7 +29,7 @@
   </div>
   <div class="col-sm">
     <div class="card-header">
-      <h4 class="my-0 font-weight-normal">Integer - Medium</h4>
+      <h4 class="my-0 font-weight-normal">Medium</h4>
     </div>
     <div class="card-body">
       <div id="integer_medium" class="katex"></div>
@@ -24,7 +38,7 @@
   </div>
   <div class="col-sm">
     <div class="card-header">
-      <h4 class="my-0 font-weight-normal">Integer - Large</h4>
+      <h4 class="my-0 font-weight-normal">Large</h4>
     </div>
     <div class="card-body">
       <div id="integer_large" class="katex"></div>

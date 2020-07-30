@@ -30,6 +30,14 @@ func ArthurFractionHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func ArthurFractionSumHandler(w http.ResponseWriter, r *http.Request) {
+	var a, b, exp arthur.Expression
+	a = arthur.NewRandIntegerFraction()
+	b = arthur.NewRandIntegerFraction()
+	exp = &arthur.Sum{a, b}
+	fmt.Fprintf(w, exp.LaTeX())
+}
+
 func ArthurIntegerHandler(w http.ResponseWriter, r *http.Request) {
 	format := r.URL.Query().Get("format")
 
@@ -65,5 +73,7 @@ func SetupMux(prefix string, mux *http.ServeMux) error {
 	mux.HandleFunc(u.String(), ArthurIntegerHandler)
 	u, _ = base.Parse("fraction")
 	mux.HandleFunc(u.String(), ArthurFractionHandler)
+	u, _ = base.Parse("sum")
+	mux.HandleFunc(u.String(), ArthurFractionSumHandler)
 	return nil
 }

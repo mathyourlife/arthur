@@ -20,7 +20,7 @@ func handleMain(w http.ResponseWriter, r *http.Request) {
 	})
 	pd.Body.Scripts = append(pd.Body.Scripts, &HTMLScript{
 		Src:       "/static/js/arthur.js",
-		Integrity: "sha384-EOPddPsZuhHUKUyLCDpvaFGwPUYLa0cgTf+VVV36+NVooETOhdusPpSxLPfCgv0q",
+		Integrity: "sha384-Gt8OHrojQG0oL1bFYZzZR4jtxcslsKaTaOS4mAUQcr1Mlhf7bueUPSktS2HYfyqL",
 	})
 
 	t := templates["index.html"]
