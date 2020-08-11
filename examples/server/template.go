@@ -1,12 +1,15 @@
 package main
 
 import (
+	"fmt"
 	"html/template"
 	"log"
 	"os"
 	"path"
 	"path/filepath"
 	"strings"
+
+	"github.com/fsnotify/fsnotify"
 )
 
 var (
@@ -125,4 +128,54 @@ func parseTemplates(htmlTmplDir string) {
 		files := append(components, view)
 		templates[path.Base(view)] = template.Must(template.New(path.Base(view)).Funcs(template.FuncMap{}).ParseFiles(files...))
 	}
+}
+
+func watchDirs(htmlTmplDir string) *fsnotify.Watcher {
+	watcher, err := fsnotify.NewWatcher()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	go func() {
+		for {
+			select {
+			case event, ok := <-watcher.Events:
+				log.Println(event, ok)
+				if !ok {
+					return
+				}
+				log.Println("event:", event)
+				parseTemplates(htmlTmplDir)
+				if event.Op&fsnotify.Write == fsnotify.Write {
+					log.Println("modified file:", event.Name)
+				}
+			case err, ok := <-watcher.Errors:
+				if !ok {
+					return
+				}
+				log.Println("error:", err)
+			}
+		}
+	}()
+
+	err = filepath.Walk(htmlTmplDir,
+		func(path string, info os.FileInfo, err error) error {
+			if err != nil {
+				return err
+			}
+			if !info.IsDir() {
+				return nil
+			}
+			fmt.Println(path, info.Size())
+			err = watcher.Add(path)
+			if err != nil {
+				log.Fatal(err)
+			}
+			return nil
+		})
+	if err != nil {
+		log.Println(err)
+	}
+
+	return watcher
 }

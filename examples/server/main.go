@@ -36,8 +36,11 @@ func handleMain(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	log.Println("starting server")
+	debug = true
 
 	parseTemplates("html")
+	watcher := watchDirs("html")
+	defer watcher.Close()
 
 	mux := http.NewServeMux()
 	tib.SetupMux("api/v1/", mux)
